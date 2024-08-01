@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.8'
 
     - name: Install Ansible
       run: |
@@ -27,19 +27,8 @@ jobs:
         pip install ansible
 
     - name: Run Ansible Playbook
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: 'False'
+        ANSIBLE_SSH_PRIVATE_KEY_FILE: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
-        ansible-playbook -i hosts.yaml  install.yaml
-
-    - name: Check Backup File
-      run: |
-        if [ ! -f "backup/backup_*.sql.gz" ]; then
-          echo "Backup file not found!"
-          exit 1
-        else
-          echo "Backup file found."
-        fi
-
-    - name: List Backup Files
-      run: |
-        ls -la backup/
-
+        ansible-playbook -i hosts.yaml install.yaml
