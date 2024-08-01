@@ -1,0 +1,33 @@
+---
+# tasks file for firewall
+
+- name: Install UFW
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+
+- name: Configure UFW policies
+  ansible.builtin.ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - { direction: incoming, policy: deny }
+    - { direction: outgoing, policy: allow }
+
+- name: Limit SSH connections
+  ansible.builtin.ufw:
+    rule: limit
+    port: ssh
+
+- name: Allow HTTP(s) connections
+  ansible.builtin.ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop:
+    - http
+    - https
+
+- name: Activate UFW
+  ansible.builtin.ufw:
+    state: enabled
+

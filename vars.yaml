@@ -1,0 +1,11 @@
+---
+user: "med"
+backup_path: "/home/{{ user }}/backup"
+scripts_path: "/home/{{ user }}/scripts"
+current_date_time: "{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}"
+
+mysql_db_host: "192.168.200.137"
+mysql_db_user: "med"        # Remplace par ton nom d'utilisateur MySQL
+mysql_db_password: "TEST"  # Remplace par ton mot de passe MySQL
+mysql_db_name: "test_db"
+

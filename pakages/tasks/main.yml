@@ -1,0 +1,22 @@
+---
+# tasks file for packages
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600  # (optional) cache is valid for 1 hour
+
+- name: Upgrade all packages
+  ansible.builtin.apt:
+    upgrade: dist  # Use 'dist' to perform a full upgrade
+
+- name: Installing packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - pwgen
+      - acl
+      - mailutils
+    state: present
+
+

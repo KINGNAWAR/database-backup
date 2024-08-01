@@ -1,0 +1,21 @@
+---
+- name: Installing the server
+  hosts: all
+  remote_user: med
+ 
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+    - include_vars:
+        file: vars.yaml
+
+    - include_role:
+        name: setup
+
+    - include_role:
+        name: pakages
+    - include_role:
+        name: firewall
+    - include_role:
+        name: cron

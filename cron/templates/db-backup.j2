@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Define backup file name with date
+BACKUP_FILE="{{ backup_path }}_$(date +%Y-%m-%d-%H-%M).sql.gz"
+
+# Perform the MySQL dump and compress the output
+dumpDB=$(mysqldump --defaults-file=/home/{{ user }}/.my.cnf --add-drop-table -u {{ mysql_db_user }} {{ mysql_db_name }} | gzip > "${BACKUP_FILE}")
+
+if $dumpDB; then
+exit 0
+
+fi
+
+exit 1
+
+I
