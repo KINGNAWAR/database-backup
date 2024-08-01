@@ -1,6 +1,8 @@
-[servers]
-192.168.200.137 ansible_user=med
+all:
+  hosts:
+    192.168.200.137:
+      ansible_user: med
+  vars:
+    ansible_ssh_private_key_file: /home/med/.ssh/id_rsa
 
-[servers:vars]
-ansible_ssh_private_key_file=/home/med/.ssh/id_rsa
 
